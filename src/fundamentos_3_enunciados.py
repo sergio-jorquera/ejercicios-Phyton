@@ -93,6 +93,13 @@ print(f"División = {dividir(3,0)}")
 # Objetivo: Usar return con operaciones
 # Escribe una función llamada edad_futura(edad_actual, años) que calcule la edad que tendrás después de X años.
 
+def edad_futura(edad_actual, años):
+    edad = edad_actual + años
+    return edad 
+mi_edad_futura = edad_futura(43, 26)
+print(f" Tu edad dentro de 26 años será {mi_edad_futura}.")
+    
+
 # ------------------------------
 # ✨ Ejercicio 8: Media de 3 números
 # Objetivo: Trabajar con números y return

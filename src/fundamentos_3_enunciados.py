@@ -106,6 +106,17 @@ print(f" Tu edad dentro de 26 años será {mi_edad_futura}.")
 # Crea una función llamada calcular_media(a, b, c) que devuelva la media de tres números.
 # Prueba la función y muestra el resultado con print().
 
+def calcular_media(a, b, c):
+     return  (a + b + c) / 3
+    
+a = 10
+b = 15
+c = 20
+media = calcular_media(a, b, c)
+print(f"la media de los tres números es {media}")
+
+
+
 # ------------------------------
 # ✨ Ejercicio 9: Mostrar menú (sin lógica)
 # Objetivo: Separar la presentación de la lógica
@@ -113,6 +124,12 @@ print(f" Tu edad dentro de 26 años será {mi_edad_futura}.")
 # 1. Ver perfil
 # 2. Editar perfil
 # 3. Cerrar sesión
+
+def mostrar_menu():
+    print ("1. Ver perfil")
+    print ("2. Editar perfil")
+    print ("3. Cerrar sesión")
+mostrar_menu()
 
 # ------------------------------
 # 🌟 Reto Final: Generador de contraseñas
@@ -134,4 +151,26 @@ print(f" Tu edad dentro de 26 años será {mi_edad_futura}.")
 # - Usa la librería random
 # - Controla que la longitud mínima sea 8 caracteres
 # - Añade un mensaje de advertencia si se pide menos de 8
+
+import random
+
+def generar_contraseña(longitud):
+    if longitud < 8:
+        print("⚠️ Advertencia: La longitud mínima recomendada es de 8 caracteres.")
+        return None
+
+    letras_mayus = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    letras_minus = "abcdefghijklmnopqrstuvwxyz"
+    numeros = "0123456789"
+    simbolos = "!@#$%&*"
+
+    caracteres = letras_mayus + letras_minus + numeros + simbolos
+
+    contraseña = ''.join(random.choice(caracteres) for _ in range(longitud))
+    return contraseña
+
+contraseña = generar_contraseña(12)
+if contraseña:
+    print("Contraseña generada:", contraseña)
+
 

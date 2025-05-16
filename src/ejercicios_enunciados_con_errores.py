@@ -203,6 +203,24 @@ generar_alias()
 # - Contiene mayúsculas, minúsculas y números
 # 💡 Usa raise y excepciones personalizadas con mensajes explicativos.
 
+def comprobar_contrasena():
+    try:
+        contrasena = input("Introduce la contraseña: ")
+
+        if len(contrasena) < 8:
+            raise ValueError("La contraseña debe tener al menos 8 caracteres")
+        if not any(c.isupper() for c in contrasena):
+            raise ValueError("La contraseña debe tener al menos una mayúscula")
+        if not any(c.islower() for c in contrasena):
+            raise ValueError("La contraseña debe tener al menos una minúscula")
+        if not any(c.isdigit() for c in contrasena):
+            raise ValueError("La contraseña debe tener al menos un número")
+
+    except ValueError as e:
+         print(f"Error: {e}")
+
+comprobar_contrasena()
+
 # 🌟 Reto Extra: Simulador de reservas de hotel
 # ----------------------------------------------
 # Habitaciones del 101 al 110. El usuario puede:

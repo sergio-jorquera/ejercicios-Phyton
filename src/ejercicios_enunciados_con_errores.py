@@ -83,6 +83,10 @@ def menu():
         else:
             print("Opción no válida. Intenta de nuevo.")
 
+    
+#if __name__ == "__main__":
+    menu()
+
 # Ejecutar el programa
 
 
@@ -131,8 +135,6 @@ def limpiar_lista(lista):
 
 limpiar_lista(lista)
 
-if __name__ == "__main__":
-    menu()
         
 
 
@@ -146,8 +148,38 @@ if __name__ == "__main__":
 # - Muestra la palabra más repetida
 # 💡 Controla que el texto no esté vacío. Usa ValueError.
 
-parrafo = input(print("Introduce un párrafo"))
+import string
+from collections import Counter
 
+def contar_palabras():
+    parrafo = input("Introduce un párrafo: ").strip()
+    
+    # Validar que no esté vacío
+    if not parrafo:
+        raise ValueError("El texto no puede estar vacío.")
+    
+    # Quitar puntuación y pasar a minúsculas
+    tabla = str.maketrans("", "", string.punctuation)
+    parrafo_limpio = parrafo.translate(tabla).lower()
+    
+    # Separar palabras
+    palabras = parrafo_limpio.split()
+    
+    # Contar palabras
+    total_palabras = len(palabras)
+    contador = Counter(palabras)
+    palabra_mas_repetida = contador.most_common(1)[0]  # (palabra, cantidad)
+    
+    # Mostrar resultados
+    print(f"\nNúmero total de palabras: {total_palabras}")
+    print("\nFrecuencia de cada palabra:")
+    for palabra, cantidad in contador.items():
+        print(f"  {palabra}: {cantidad}")
+    
+    print(f"\nPalabra más repetida: '{palabra_mas_repetida[0]}' ({palabra_mas_repetida[1]} veces)")
+
+
+    
 # Ejercicio 4: Simulador de inventario
 # -------------------------------------
 # Crea un sistema que permita gestionar productos en un inventario.
@@ -158,6 +190,85 @@ parrafo = input(print("Introduce un párrafo"))
 # 3. Eliminar producto
 # 4. Ver inventario
 # 💡 Usa try/except para validar entradas numéricas y para controlar si el producto no existe.
+
+inventario = {}
+
+def mostrar_menu():
+    print("1. Añadir producto")
+    print("2. Actualizar stock")
+    print("3. Eliminar producto")
+    print("4. Ver inventario")
+    print("5- Salir")
+
+
+def añadir_producto():
+    nombre_producto = input("Introduce el nombre del producto: ").strip().lower()
+    if nombre_producto not in inventario:
+        try:
+            stock = int(input("stock: "))
+            precio = float(input("precio: "))
+            inventario[nombre_producto] = {"stock": stock, "precio": precio}
+            print(f"El producto {nombre_producto} se ha añadido con éxito")
+        except ValueError:
+            print("Ingresa un número válido para stock y precio")
+    else:
+        print(f"El producto {nombre_producto} ya existe")
+
+def actualizar_stock():
+    nombre_producto = input("Introduce el nombre del producto del que quieras actualizar stock: ").strip().lower()   
+    if nombre_producto in inventario:
+        try:
+            nuevo_stock = int(input("nuevo stock: "))
+            inventario[nombre_producto] ["stock"] = nuevo_stock
+            print(f"El stock de {nombre_producto} se ha actualizado")
+        except ValueError:
+            print("El valor debe de ser un número entero")
+    else:
+        print("El producto no se encuentra en el inventario")
+
+def eliminar_producto():
+    nombre_producto = input("Introduce el nombre del producto a eliminar: ").strip().lower()
+    if nombre_producto in inventario:
+        del inventario[nombre_producto]
+        print(f"{nombre_producto} ha sido eliminado")
+    else:
+        print("El producto no existe")
+
+def ver_inventario():
+    if not inventario:
+        print("El inventario está vacío")
+    else:
+        for nombre_producto, datos in inventario.items():
+            print(f"{nombre_producto} | stock: {datos['stock']} | precio: {datos['precio']:.2f}€")
+
+
+
+while True:
+    
+    mostrar_menu()
+    opcion = input("Elige una opción: ")
+
+    if opcion == "1":
+        añadir_producto()
+    elif opcion == "2":
+        actualizar_stock()
+    elif opcion == "3":
+        eliminar_producto()
+    elif opcion == "4":
+        ver_inventario()
+    elif opcion == "5":
+        print("Saliendo del sistema de inventario...")
+        break
+    else:
+        print("Opción inválida. Intenta de nuevo.")
+
+
+
+
+
+    
+
+
 
 # Ejercicio 5: Generador de alias seguro
 # ---------------------------------------
@@ -182,8 +293,8 @@ def generar_alias():
         if len(apellido) < 3:
             raise ValueError("El apellido debe tener al menos 3 letras.")
 
-        nombre_modificado = nombre[0] + nombre[1] 
-        apellido_modificado = apellido[0] + apellido[1] + apellido[2]
+        nombre_modificado = nombre[0].lower() + nombre[1].lower() 
+        apellido_modificado = apellido[0].upper() + apellido[1].upper() + apellido[2].upper()
         numero = str(random.choice(range(10, 100)))
         simbolo = str(random.choice(list('!@#$%&*')))
 
@@ -232,3 +343,11 @@ comprobar_contrasena()
 # Las reservas se almacenan en un diccionario {habitacion: nombre}
 # Usa funciones y control de errores con KeyError si la habitación no existe.
 # (Bonus: mostrar mapa visual, reservas múltiples, carga inicial aleatoria)
+
+
+def mostrar_menu_reserva():
+    print("1. Ver habitaciones disponibles")
+    print("2. Reservar habitación")
+    print("3. Cancelar reserva")
+    print("4. Ver reservas confirmadas")
+    print("5. Salir")
